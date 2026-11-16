@@ -2,22 +2,57 @@
 const CART_KEY = "tuEventoCarritoV1";
 
 function leerCarrito() {
-  try { return JSON.parse(localStorage.getItem(CART_KEY)) || []; }
-  catch { return []; }
+  try {
+    const datos = JSON.parse(localStorage.getItem(CART_KEY));
+    return Array.isArray(datos) ? datos : [];
+  } catch { return []; }
 }
 function guardarCarrito(carrito) {
-  localStorage.setItem(CART_KEY, JSON.stringify(carrito));
+  try { localStorage.setItem(CART_KEY, JSON.stringify(carrito)); }
+  catch (error) { console.warn("No se pudo guardar la cotización:", error); }
   actualizarContadores();
 }
+// Quita del carrito equipos que ya no existen en datos.js o con cantidad inválida.
+function limpiarCarrito() {
+  if (typeof equipos === "undefined") return;
+  const carrito = leerCarrito();
+  const valido = carrito.filter(item => item.cantidad > 0 && equipos.some(e => e.id === item.id));
+  if (valido.length !== carrito.length) guardarCarrito(valido);
+}
 function actualizarContadores() {
-  const total = leerCarrito().reduce((sum, item) => sum + item.cantidad, 0);
+  const total = leerCarrito().reduce((sum, item) => sum + (Number(item.cantidad) || 0), 0);
   document.querySelectorAll("[data-cart-count]").forEach(el => el.textContent = total);
 }
 function formatoDinero(valor) {
-  return new Intl.NumberFormat("es-PA", { style: "currency", currency: "USD" }).format(valor);
+  return new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(valor);
 }
 function escaparHTML(valor) {
   return String(valor ?? "").replace(/[&<>"']/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[c]));
+}
+
+// La marca "Por definir" es un marcador interno: no se muestra ni se busca.
+function marcaVisible(equipo) {
+  return equipo.marca && equipo.marca !== "Por definir" ? equipo.marca : "";
+}
+
+// Llena los filtros con las categorías y tipos que existen en datos.js,
+// para que nunca queden desalineados con el catálogo.
+function poblarFiltros() {
+  if (typeof equipos === "undefined") return;
+  const llenar = (id, campo) => {
+    const select = document.getElementById(id);
+    if (!select) return;
+    const valores = [...new Set(equipos.map(e => e[campo]).filter(Boolean))];
+    select.querySelectorAll("option:not([value=''])").forEach(o => o.remove());
+    valores.forEach(valor => select.add(new Option(valor, valor)));
+  };
+  llenar("filterCategory", "categoria");
+  llenar("filterType", "tipo");
+}
+
+// Quita acentos y mayúsculas para que "iluminacion" encuentre "Iluminación".
+function normalizar(texto) {
+  return String(texto ?? "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
 }
 
 function configurarMenu() {
@@ -52,7 +87,7 @@ function renderizarProductos(lista) {
     card.innerHTML = `
       <div class="product-visual">${equipo.imagen ? `<img class="product-photo" src="${escaparHTML(equipo.imagen)}" alt="${escaparHTML(equipo.nombre)}" loading="lazy">` : ""}<span>${escaparHTML(equipo.icono)}</span><small>${escaparHTML(equipo.categoria)}</small></div>
       <div class="product-content">
-        <p class="card-index">${escaparHTML(equipo.marca)} / ${escaparHTML(equipo.modelo)}</p>
+        <p class="card-index">${escaparHTML([marcaVisible(equipo), equipo.modelo].filter(Boolean).join(" / "))}</p>
         <h2>${escaparHTML(equipo.nombre)}</h2>
         <p class="product-description">${escaparHTML(equipo.descripcion)}</p>
         ${equipo.especificaciones && equipo.especificaciones.length
@@ -70,7 +105,10 @@ function renderizarProductos(lista) {
 // Si la foto de un equipo aún no existe, se quita y queda visible el ícono.
 function ocultarImagenesRotas(contenedor) {
   contenedor.querySelectorAll("img.product-photo").forEach(img => {
-    const quitar = () => img.remove();
+    const quitar = () => {
+      console.warn("Imagen no encontrada, revisa la ruta en datos.js:", img.getAttribute("src"));
+      img.remove();
+    };
     img.addEventListener("error", quitar, { once: true });
     if (img.complete && img.naturalWidth === 0) quitar();
   });
@@ -79,11 +117,11 @@ function ocultarImagenesRotas(contenedor) {
 function filtrarProductos() {
   const category = document.getElementById("filterCategory")?.value || "";
   const type = document.getElementById("filterType")?.value || "";
-  const search = (document.getElementById("searchProducts")?.value || "").trim().toLowerCase();
+  const search = normalizar((document.getElementById("searchProducts")?.value || "").trim());
   const filtered = equipos.filter(e => {
     const matchesCategory = !category || e.categoria === category;
     const matchesType = !type || e.tipo === type;
-    const text = `${e.nombre} ${e.modelo} ${e.marca} ${e.descripcion}`.toLowerCase();
+    const text = normalizar(`${e.nombre} ${e.modelo} ${marcaVisible(e)} ${e.categoria} ${e.tipo} ${e.descripcion}`);
     return matchesCategory && matchesType && text.includes(search);
   });
   renderizarProductos(filtered);
@@ -114,10 +152,14 @@ function renderizarCotizacion() {
     contenedor.innerHTML = '<div class="empty-state"><h3>Tu cotización está vacía</h3><p>Visita el catálogo para agregar equipos.</p><a class="btn btn-gold" href="equipos.html">Explorar equipos</a></div>';
   }
   let total = 0;
+  let conPrecio = 0;
   carrito.forEach(item => {
     const equipo = equipos.find(e => e.id === item.id);
     if (!equipo) return;
-    if (typeof equipo.precio === "number") total += equipo.precio * item.cantidad;
+    if (typeof equipo.precio === "number") {
+      total += equipo.precio * item.cantidad;
+      conPrecio += 1;
+    }
     const row = document.createElement("article");
     row.className = "quote-row";
     row.innerHTML = `
@@ -128,7 +170,8 @@ function renderizarCotizacion() {
     contenedor.appendChild(row);
   });
   ocultarImagenesRotas(contenedor);
-  document.getElementById("quoteSubtotal").textContent = formatoDinero(total);
+  const subtotal = document.getElementById("quoteSubtotal");
+  if (subtotal) subtotal.textContent = conPrecio ? formatoDinero(total) : "Por consultar";
   document.querySelectorAll("[data-minus]").forEach(btn => btn.addEventListener("click", () => cambiarCantidad(Number(btn.dataset.minus), -1)));
   document.querySelectorAll("[data-plus]").forEach(btn => btn.addEventListener("click", () => cambiarCantidad(Number(btn.dataset.plus), 1)));
   document.querySelectorAll("[data-remove]").forEach(btn => btn.addEventListener("click", () => quitarEquipo(Number(btn.dataset.remove))));
@@ -150,6 +193,13 @@ function quitarEquipo(id) {
 function configurarFormulario() {
   const form = document.getElementById("requestForm");
   if (!form) return;
+  // No permite elegir fechas pasadas para el evento.
+  const campoFecha = form.elements.fecha;
+  if (campoFecha) {
+    const hoy = new Date();
+    hoy.setMinutes(hoy.getMinutes() - hoy.getTimezoneOffset());
+    campoFecha.min = hoy.toISOString().slice(0, 10);
+  }
   form.addEventListener("submit", event => {
     event.preventDefault();
     const carrito = leerCarrito();
@@ -178,8 +228,10 @@ function configurarFormulario() {
     const a = document.createElement("a");
     a.href = url;
     a.download = "solicitud-cotizacion-tu-evento.txt";
+    document.body.appendChild(a);
     a.click();
-    URL.revokeObjectURL(url);
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
     alert("Se descargó el resumen de tu solicitud. Esta versión aún no envía los datos a un servidor.");
   });
 }
@@ -188,7 +240,11 @@ function configurarFormulario() {
 function configurarVideosEventos() {
   const videos = document.querySelectorAll(".event-media");
   if (!videos.length) return;
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || !("IntersectionObserver" in window)) return;
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  if (!("IntersectionObserver" in window)) {
+    videos.forEach(video => video.play().catch(() => {}));
+    return;
+  }
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
       const video = entry.target;
@@ -202,13 +258,18 @@ function configurarVideosEventos() {
 document.addEventListener("DOMContentLoaded", () => {
   configurarVideosEventos();
   configurarMenu();
+  limpiarCarrito();
   actualizarContadores();
   if (document.getElementById("productGrid")) {
+    poblarFiltros();
     const params = new URLSearchParams(location.search);
     const categoria = params.get("categoria");
-    if (categoria) document.getElementById("filterCategory").value = categoria;
-    ["filterCategory", "filterType"].forEach(id => document.getElementById(id).addEventListener("change", filtrarProductos));
-    document.getElementById("searchProducts").addEventListener("input", filtrarProductos);
+    const selectCategoria = document.getElementById("filterCategory");
+    if (categoria && selectCategoria && [...selectCategoria.options].some(o => o.value === categoria)) {
+      selectCategoria.value = categoria;
+    }
+    ["filterCategory", "filterType"].forEach(id => document.getElementById(id)?.addEventListener("change", filtrarProductos));
+    document.getElementById("searchProducts")?.addEventListener("input", filtrarProductos);
     filtrarProductos();
   }
   renderizarCotizacion();
