@@ -1,66 +1,296 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Tu Evento: soluciones profesionales para eventos.">
-  <title>Tu Evento | Inicio</title>
-  <link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Tu Evento: sonido, iluminación, pantallas LED y estructuras para eventos en Panamá.">
+<title>Tu Evento | Producción profesional de eventos</title>
+<style>
+:root{--bg:#080a0c;--p:#111519;--l:#293238;--o:#f7941d;--o2:#ffb04a;--g:#7eb917;--b:#2f9be0;--t:#f4f3ef;--m:#a3adb2}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
+body{background:var(--bg);color:var(--t);font:16px/1.6 system-ui,"Segoe UI",Arial,sans-serif}
+a{color:inherit;text-decoration:none}button,input,select,textarea{font:inherit}button{cursor:pointer}
+.w{width:min(1180px,92%);margin:auto}
+header{position:sticky;top:0;z-index:9;background:rgba(7,9,11,.95);border-bottom:2px solid var(--o);backdrop-filter:blur(12px)}
+header .w{display:flex;align-items:center;gap:16px;flex-wrap:wrap;padding:10px 0}
+.brand img{height:52px;display:block}.brand b{letter-spacing:3px;font-size:18px}
+nav{display:flex;gap:18px;flex-wrap:wrap;margin-left:auto}
+nav a{font-size:12px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:#c0c6c8}nav a:hover{color:var(--o2)}
+.cart{border:1px solid var(--o);padding:8px 14px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.8px}
+.cart span{background:var(--o);color:#111;border-radius:50%;padding:1px 7px;margin-left:8px}
+.hero{padding:110px 0 90px;background:radial-gradient(ellipse at 80% 40%,rgba(247,148,29,.2),transparent 40%),radial-gradient(ellipse at 60% 90%,rgba(10,114,185,.22),transparent 40%),#0d1114}
+.eb{color:var(--g);font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase}
+h1{font-size:clamp(42px,7vw,80px);line-height:1;margin:18px 0;letter-spacing:-2px}h1 em{font-style:normal;color:var(--o)}
+h2{font-size:clamp(28px,4vw,42px);margin:8px 0 28px}
+.l{max-width:560px;color:#b5bec1;margin-bottom:28px}
+.btn{display:inline-block;background:var(--o);color:#111;border:1px solid var(--o);padding:12px 22px;font-size:12px;font-weight:800;letter-spacing:1px;text-transform:uppercase}.btn:hover{background:var(--o2)}.btn.o{background:none;color:#fff;border-color:var(--b);margin-left:10px}
+section{padding:80px 0}
+.flt{display:grid;grid-template-columns:1fr 1fr 2fr;gap:12px;background:var(--p);border:1px solid var(--l);padding:16px}
+label{display:flex;flex-direction:column;gap:6px;font-size:11px;font-weight:700;color:#aeb8bb;text-transform:uppercase}
+input,select,textarea{background:#090d0f;color:var(--t);border:1px solid #303a3f;padding:10px;width:100%}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.card,.sv,.box{background:var(--p);border:1px solid var(--l)}
+.card{overflow:hidden}
+.vis{height:180px;position:relative;display:grid;place-items:center;font-size:70px;color:var(--o);background:radial-gradient(circle,#303a3d,#111719 65%);overflow:hidden}
+.vis img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;padding:12px;background:#eef1f2}
+.vis small{position:absolute;bottom:10px;left:14px;font-size:10px;letter-spacing:2px;color:#c3c9c9;text-transform:uppercase;z-index:1;background:rgba(8,10,12,.7);padding:2px 6px}
+.ci{padding:18px}.ci h3{font-size:18px;margin:6px 0}.ci p,.ci li{color:var(--m);font-size:13px}.ci ul{margin:10px 0 10px 18px}
+.tag{display:inline-block;background:rgba(10,114,185,.2);color:#9fd0f2;font-size:11px;padding:3px 8px;margin:8px 0}
+.bt{display:flex;justify-content:space-between;align-items:center;gap:10px;border-top:1px solid var(--l);padding-top:12px;margin-top:10px}.bt strong{color:var(--o2);font-size:13px}
+.bt button,.q button{background:var(--o);border:0;padding:8px 12px;font-weight:800;font-size:11px;text-transform:uppercase}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.sv{padding:26px}.sv i{font-style:normal;font-size:40px;color:var(--o);display:block}.sv h3{margin:6px 0}.sv p{color:var(--m);font-size:14px}
+.ev{position:relative;min-height:260px;display:flex;align-items:flex-end;padding:26px;border:1px solid var(--l);overflow:hidden;isolation:isolate;background:linear-gradient(135deg,#1c262b,#12181b)}
+.ev video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
+.ev:after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(0deg,rgba(8,10,12,.92),rgba(8,10,12,.2))}
+.ev p{color:#d3dadc;font-size:14px}.ev h3{font-size:22px;margin:4px 0}
+.ql{display:grid;grid-template-columns:1.6fr 1fr;gap:20px;align-items:start}
+.box{padding:22px}.box h3{margin-bottom:14px}
+.q{display:grid;grid-template-columns:1fr auto auto;gap:12px;align-items:center;padding:14px 0;border-bottom:1px solid var(--l)}
+.q small{display:block;color:var(--m)}.q .qty{display:flex;gap:8px;align-items:center}.q .qty button{width:28px;padding:4px}
+.q .x{background:none;color:#d18b80;padding:0;text-transform:none}
+.sub{display:flex;justify-content:space-between;padding-top:16px}.sub strong{color:var(--o2)}
+form{display:grid;gap:12px}
+.em{text-align:center;color:var(--m);padding:30px 10px;border:1px dashed #465157}
+footer{border-top:2px solid var(--g);padding:30px 0;color:#849095;font-size:13px;text-align:center}
+@media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}.ql{grid-template-columns:1fr}.flt{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.grid,.g2,.flt{grid-template-columns:1fr}nav{margin-left:0;gap:12px}.hero{padding:70px 0}}
+</style>
 </head>
-<body data-page="inicio">
-  <header class="site-header">
-    <div class="nav-wrap">
-      <a class="brand" href="index.html" aria-label="Tu Evento, inicio">
-        <img class="brand-logo" src="logo-agonysystem.png" alt="Agonysystem - Simplemente lo que necesitas">
-      </a>
-      <button class="nav-toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false">☰</button>
-      <nav class="main-nav" id="mainNav">
-        <a href="index.html" data-nav="inicio">Inicio</a>
-        <a href="equipos.html" data-nav="equipos">Equipos</a>
-        <a href="servicios.html" data-nav="servicios">Servicios</a>
-        <a href="eventos.html" data-nav="eventos">Eventos</a>
-      </nav>
-      <a class="quote-link" href="cotizacion.html">Mi cotización <span class="cart-count" data-cart-count>0</span></a>
+<body>
+<header><div class="w">
+  <a class="brand" href="#inicio"><img src="logo-agonysystem.png" alt="Agonysystem" onerror="this.outerHTML='<b>AGONYSYSTEM</b>'"></a>
+  <nav><a href="#equipos">Equipos</a><a href="#servicios">Servicios</a><a href="#eventos">Eventos</a></nav>
+  <a class="cart" href="#cotizacion">Mi cotización<span id="cnt">0</span></a>
+</div></header>
+
+<main>
+<section class="hero" id="inicio"><div class="w">
+  <p class="eb">Producción profesional de eventos</p>
+  <h1>Tu evento.<br><em>Tu experiencia.</em></h1>
+  <p class="l">Sonido profesional, iluminación, pantallas LED y soluciones técnicas para crear eventos memorables.</p>
+  <a class="btn" href="#equipos">Explorar equipos</a><a class="btn o" href="#cotizacion">Crear cotización</a>
+</div></section>
+
+<section id="equipos"><div class="w">
+  <p class="eb">Catálogo</p><h2>Equipos profesionales</h2>
+  <div class="flt">
+    <label>Categoría<select id="fc"></select></label>
+    <label>Tipo<select id="ft"></select></label>
+    <label>Buscar<input id="fs" type="search" placeholder="Ej. EVENT, subwoofer..."></label>
+  </div>
+  <p id="rc" style="color:#879398;font-size:12px;margin:14px 0"></p>
+  <div class="grid" id="pg"></div>
+</div></section>
+
+<section id="servicios" style="background:#0b0f11"><div class="w">
+  <p class="eb">Lo que hacemos</p><h2>Servicios</h2>
+  <div class="g2">
+    <div class="sv"><i>♫</i><p class="eb">01 / Audio</p><h3>Sonido profesional</h3><p>Diseño de sistemas de sonido, microfonía, monitoreo y refuerzo sonoro para distintos espacios.</p></div>
+    <div class="sv"><i style="color:var(--b)">✧</i><p class="eb">02 / Iluminación</p><h3>Iluminación escénica</h3><p>Iluminación para escenarios, presentaciones, conciertos y celebraciones.</p></div>
+    <div class="sv"><i style="color:var(--g)">▣</i><p class="eb">03 / Video</p><h3>Pantallas y video</h3><p>Pantallas LED y apoyo visual para contenido, presentaciones y producción en vivo.</p></div>
+    <div class="sv"><i style="color:var(--o2)">⌗</i><p class="eb">04 / Producción</p><h3>Montaje y producción</h3><p>Planificación técnica, estructuras y coordinación del montaje de equipos.</p></div>
+  </div>
+</div></section>
+
+<section id="eventos"><div class="w">
+  <p class="eb">Experiencias</p><h2>Eventos que podemos producir</h2>
+  <div class="g2">
+    <article class="ev" data-v="eventos-conciertos"><div><p class="eb">01 / En vivo</p><h3>Conciertos y festivales</h3><p>Audio, iluminación, pantallas y estructuras para espectáculos.</p></div></article>
+    <article class="ev" data-v="eventos-corporativo"><div><p class="eb">02 / Empresarial</p><h3>Eventos corporativos</h3><p>Soluciones audiovisuales para conferencias, lanzamientos y reuniones.</p></div></article>
+    <article class="ev" data-v="eventos-bodas"><div><p class="eb">03 / Social</p><h3>Bodas y celebraciones</h3><p>Ambientes de iluminación y sonido para celebraciones especiales.</p></div></article>
+    <article class="ev" data-v="eventos-publicos"><div><p class="eb">04 / Comunitario</p><h3>Eventos escolares y públicos</h3><p>Producción técnica adaptable a actividades institucionales y comunitarias.</p></div></article>
+  </div>
+</div></section>
+
+<section id="cotizacion" style="background:#0b0f11"><div class="w">
+  <p class="eb">Tu selección</p><h2>Mi cotización</h2>
+  <div class="ql">
+    <div class="box"><h3>Equipos seleccionados</h3><div id="ql"></div>
+      <div class="sub"><span>Subtotal con precios registrados</span><strong id="sub">Por consultar</strong></div>
+      <p style="color:#849095;font-size:12px;margin-top:10px">Los equipos sin precio se muestran como “Precio por consultar”. El total final lo confirma el equipo de producción.</p></div>
+    <div class="box"><h3>Solicita tu cotización</h3>
+      <form id="rf">
+        <label>Nombre completo<input name="nombre" required autocomplete="name"></label>
+        <label>Teléfono<input name="telefono" type="tel" required autocomplete="tel"></label>
+        <label>Correo electrónico<input name="correo" type="email" required autocomplete="email"></label>
+        <label>Tipo de evento<select name="tipo" required><option value="">Seleccionar</option><option>Concierto</option><option>Boda</option><option>Corporativo</option><option>Escolar</option><option>Celebración</option><option>Otro</option></select></label>
+        <label>Fecha del evento<input id="fd" name="fecha" type="date" required></label>
+        <label>Lugar del evento<input name="lugar" required></label>
+        <label>Detalles adicionales<textarea name="mensaje" rows="3" placeholder="Cantidad de asistentes, horario, necesidades..."></textarea></label>
+        <button class="btn" type="submit" id="env">Enviar solicitud</button>
+      </form>
     </div>
-  </header>
+  </div>
+</div></section>
+</main>
 
-  <main>
-    <section class="hero">
-      <div class="hero-content container">
-        <p class="eyebrow">PRODUCCIÓN PROFESIONAL DE EVENTOS</p>
-        <h1>Tu evento.<br><em>Tu experiencia.</em></h1>
-        <p class="hero-copy">Sonido profesional, iluminación, pantallas LED y soluciones técnicas para crear eventos memorables.</p>
-        <div class="button-row">
-          <a class="btn btn-gold" href="equipos.html">Explorar equipos</a>
-          <a class="btn btn-outline" href="cotizacion.html">Crear cotización</a>
-        </div>
-      </div>
-      <div class="hero-note">AUDIO · ILUMINACIÓN · VIDEO · PRODUCCIÓN</div>
-    </section>
+<footer><div class="w">Producción profesional para eventos · Panamá · © 2026 Tu Evento. Todos los derechos reservados.</div></footer>
 
-    <section class="section container">
-      <div class="section-heading">
-        <p class="eyebrow">NUESTRO CATÁLOGO</p>
-        <h2>Soluciones para cada producción</h2>
-        <p>Entra a una categoría y selecciona los equipos que necesitas.</p>
-      </div>
-      <div class="category-grid">
-        <a class="category-tile" href="equipos.html?categoria=Audio"><span>01</span><div class="tile-icon">♫</div><h3>Audio</h3><p>Sistemas, subwoofers y monitores.</p></a>
-        <a class="category-tile" href="equipos.html?categoria=Iluminación"><span>02</span><div class="tile-icon">✧</div><h3>Iluminación</h3><p>Luces y efectos para escenarios.</p></a>
-        <a class="category-tile" href="equipos.html?categoria=Pantallas%20LED"><span>03</span><div class="tile-icon">▣</div><h3>Pantallas LED</h3><p>Soluciones visuales para eventos.</p></a>
-        <a class="category-tile" href="equipos.html?categoria=Estructuras"><span>04</span><div class="tile-icon">⌗</div><h3>Estructuras</h3><p>Truss y elementos de montaje.</p></a>
-      </div>
-    </section>
+<script>
+/* ============ CONEXIÓN A SUPABASE (opcional) ============
+   Pega aquí la URL de tu proyecto y la clave PUBLICABLE (sb_publishable_...).
+   NUNCA pongas la clave secreta. Si los dejas vacíos, el sitio funciona igual:
+   usa el catálogo de abajo y descarga la solicitud como archivo .txt. */
+const SUPABASE_URL = "", SUPABASE_KEY = "";
+const BD = !!(SUPABASE_URL && SUPABASE_KEY);
 
-    <section class="feature-band">
-      <div class="container feature-inner">
-        <div><p class="eyebrow">COTIZACIÓN A TU MEDIDA</p><h2>Arma tu evento,<br>equipo por equipo.</h2></div>
-        <a class="btn btn-gold" href="equipos.html">Ver catálogo</a>
-      </div>
-    </section>
-  </main>
+/* ============ CATÁLOGO ============
+   m(id, foto, categoría, tipo, marca, modelo, nombre, descripción, [especificaciones], ícono, precio)
+   - precio: número (ej. 150) o null = "Precio por consultar".
+   - foto: nombre del archivo en media/equipos/ (sin .jpg). Si no existe, se muestra el ícono. */
+const m = (id, f, cat, tipo, marca, mod, nom, desc, esp, ico, precio = null) =>
+  ({ id, img: "media/equipos/" + f + ".jpg", cat, tipo, marca, mod, nom, desc, esp, ico, precio });
+const E = [
+  m(1, "event-26a", "Audio", "Line Array", "DAS Audio", "EVENT-26A", "EVENT-26A", "Sistema autoamplificado, 400 W, 2 × 6 pulgadas, 2 vías de amplia gama. Line Array compacto, color negro.", ["SPL máximo: 133 dB", "Dispersión: 100°", "Peso: 16,5 kg (36,4 lb)"], "♫"),
+  m(2, "event-28a", "Audio", "Line Array", "DAS Audio", "EVENT-28A", "EVENT-28A", "Sistema autoamplificado, 650 W, 2 × 8 pulgadas, 2 vías de amplia gama. Line Array compacto, color negro.", ["SPL máximo: 136 dB", "Dispersión: 100°", "Peso: 20,5 kg (44,1 lb)"], "♫"),
+  m(3, "event-s218a", "Audio", "Subwoofer", "DAS Audio", "EVENT-S218A", "Subwoofer EVENT-S218A", "Refuerzo de bajas frecuencias para sistemas de sonido.", [], "◉"),
+  m(4, "event-m12a", "Audio", "Monitor", "DAS Audio", "EVENT-M12A", "Monitor EVENT-M12A", "Monitor de escenario.", [], "♫"),
+  m(5, "sara", "Audio", "Line Array", "DAS Audio", "SARA", "Sistema SARA", "Sistema line array profesional.", [], "♫"),
+  m(6, "mara", "Audio", "Line Array", "DAS Audio", "MARA", "Sistema MARA", "Sistema para producciones de gran formato.", [], "♫"),
+  m(7, "lara", "Audio", "Line Array", "DAS Audio", "LARA", "Sistema LARA", "Sistema line array profesional.", [], "♫"),
+  m(8, "mh-350", "Iluminación", "Moving Head", "", "MH-350", "Moving Head 350W", "Cabeza móvil para iluminación escénica.", [], "✧"),
+  m(9, "mh-200", "Iluminación", "Moving Head", "", "MH-200", "Moving Head 200W", "Cabeza móvil compacta para escenarios.", [], "✧"),
+  m(10, "p3-9", "Pantallas LED", "Pantalla LED", "", "P3.9", "Pantalla LED P3.9", "Módulo LED para escenarios y eventos.", [], "▣"),
+  m(11, "p2-6", "Pantallas LED", "Pantalla LED", "", "P2.6", "Pantalla LED P2.6", "Pantalla LED de alta resolución.", [], "▣"),
+  m(12, "truss-3m", "Estructuras", "Truss", "", "TRUSS-3M", "Truss de 3 metros", "Estructura modular para montaje.", [], "⌗"),
+  m(13, "truss-2m", "Estructuras", "Truss", "", "TRUSS-2M", "Truss de 2 metros", "Estructura modular para montaje.", [], "⌗"),
+  m(14, "smoke-1500", "Efectos", "Máquina de humo", "", "SMOKE-1500", "Máquina de humo", "Equipo de efectos escénicos.", [], "〰"),
+  m(15, "jbl-vtx-a12", "Audio", "Line Array", "JBL Professional", "VTX A12", "JBL VTX A12", "Line array de 3 vías con 2 woofers de 12″, 4 medios de 5,5″ y 3 drivers de compresión de 2″.", ["SPL máximo: 146 dB", "Respuesta: 46 Hz – 19 kHz (-10 dB)", "Cobertura horizontal: 90°", "Peso: 60,8 kg (134 lb)", "Dimensiones: 330 × 1118 × 495 mm"], "♫"),
+  m(16, "lacoustics-kara-ii", "Audio", "Line Array", "L-Acoustics", "KARA II", "L-Acoustics KARA II", "Fuente lineal modular activa de 2 vías con 2 woofers de 8″ y 1 driver de compresión de 3″. Cobertura ajustable con Panflex.", ["SPL máximo: 142 dB", "Ancho de banda: 55 Hz – 20 kHz (-10 dB)", "Cobertura: 70° / 110° simétrica o 90° asimétrica", "Peso: 26 kg (57 lb)"], "♫"),
+  m(17, "robe-megapointe", "Iluminación", "Moving Head", "Robe", "MegaPointe", "Robe MegaPointe", "Cabezal móvil híbrido (beam, spot y wash) con lámpara Osram Sirius HRI 470 W, mezcla de color CMY y 12 efectos de haz.", ["Salida: 20.375 lúmenes", "Zoom: 1,8°–21° (beam) / 3°–42° (spot)", "Consumo: 670 W a 230 V", "Peso: 22 kg (48,5 lb)", "Dimensiones: 640 × 396 × 230 mm"], "✧"),
+  m(18, "roe-black-pearl-bp2v2", "Pantallas LED", "Pantalla LED", "ROE Visual", "BP2V2", "ROE Black Pearl BP2V2", "Panel LED de interior de 2,84 mm con marco de aleación de magnesio y ensamble magnético, para video en vivo y cámara.", ["Paso de píxel: 2,84 mm", "Panel: 500 × 500 × 90 mm, 176 × 176 px", "Brillo calibrado: 1.500 nits", "Peso: 9,35 kg por panel", "Consumo máx./prom.: 160 W / 80 W", "Solo uso en interiores"], "▣"),
+  m(19, "shure-sm58", "Audio", "Micrófono", "Shure", "SM58", "Shure SM58", "Micrófono vocal dinámico cardioide, estándar de la industria para presentaciones en vivo.", ["Respuesta: 50 Hz – 15 kHz", "Patrón polar: cardioide", "Conector: XLR de 3 pines", "Peso: 298 g"], "♪"),
+  m(20, "allen-heath-sq-7", "Consolas", "Consola digital", "Allen & Heath", "SQ-7", "Allen & Heath SQ-7", "Consola digital de 48 canales con 12 mezclas estéreo, 3 matrices estéreo y 8 motores de efectos estéreo.", ["48 canales de entrada y 36 buses", "33 faders motorizados de 100 mm (6 capas)", "32 preamplificadores de micrófono", "Procesamiento FPGA XCVI a 96 kHz", "Pantalla táctil de 7″", "Dimensiones: 804 × 515 × 198 mm", "Peso: 17,8 kg"], "▦"),
+  m(21, "yamaha-dm7", "Consolas", "Consola digital", "Yamaha", "DM7", "Yamaha DM7", "Consola digital con Dante, 120 canales de entrada mono y fuente de poder redundante.", ["120 canales de entrada, 48 buses mix, 12 matrices y 2 buses estéreo", "Entradas locales: 32 analógicas; salidas: 16 analógicas", "Dante: 144 entradas / 144 salidas", "Pantallas multitáctiles: 2 × 12,1″ y 1 × 7″", "Faders: 24 + 4", "Dimensiones: 793 × 324 × 564 mm", "Peso: 23,5 kg"], "▦"),
+  m(22, "pioneer-cdj-3000", "DJ", "Reproductor DJ", "Pioneer DJ", "CDJ-3000", "Pioneer DJ CDJ-3000", "Reproductor multimedia profesional para DJ con pantalla táctil de 9″ y conexión Pro DJ Link.", ["Pantalla táctil HD de 9″", "Jog de 206 mm con pantalla LCD", "Respuesta de frecuencia: 4 Hz – 40 kHz", "Conversor D/A de 32 bits", "Medios: USB, tarjeta SD y PC/Mac", "Dimensiones: 329 × 453 × 118 mm", "Peso: 5,5 kg"], "◎"),
+  m(23, "blackmagic-atem-mini-pro", "Video", "Switcher de video", "Blackmagic Design", "ATEM Mini Pro", "Blackmagic ATEM Mini Pro", "Switcher de video en vivo con 4 entradas HDMI, salida webcam USB, grabación en USB y transmisión directa por Ethernet.", ["4 entradas HDMI de 10 bits con convertidor de formato", "Hasta 1080p60 (sin soporte UHD)", "1 salida HDMI de programa", "2 entradas de audio estéreo de 3,5 mm", "Transmisión directa por Ethernet (RTMP)", "Dimensiones: 237,5 × 103,5 × 35 mm", "Peso: 550 g"], "▶"),
+  m(24, "panasonic-aw-ue150a", "Video", "Cámara PTZ", "Panasonic", "AW-UE150A", "Panasonic AW-UE150A", "Cámara PTZ 4K con sensor MOS de 1 pulgada y zoom óptico de 20×.", ["Video 4K (3840 × 2160) hasta 60p", "Zoom óptico 20× (i.Zoom: 24× en 4K, 32× en HD)", "Ángulo horizontal de 75,1°", "Salidas: 12G-SDI, 3G-SDI, HDMI, fibra óptica e IP (NDI|HX2)", "Alimentación: PoE++", "Dimensiones: 213 × 267 × 219 mm (sin soporte)", "Peso: 4,2 kg"], "▶"),
+  m(25, "global-truss-f34", "Estructuras", "Truss", "Global Truss", "F34", "Global Truss F34", "Truss cuadrado de 4 puntos de 29 cm, certificado TÜV, uno de los sistemas más usados para escenarios y parrillas de luces.", ["Sección: 290 × 290 mm", "Tubo principal: 50 × 2 mm", "Diagonales: 20 × 2 mm", "Aluminio EN AW-6082 T6", "Unión con conectores cónicos"], "⌗")
+];
 
-  <footer class="footer"><div class="container footer-inner"><a class="brand" href="index.html"><img class="brand-logo" src="logo-agonysystem.png" alt="Agonysystem - Simplemente lo que necesitas"></a><p>Producción profesional para eventos · Panamá</p><small>© 2026 Tu Evento. Todos los derechos reservados.</small></div></footer>
-  <script src="datos.js"></script><script src="app.js"></script>
+/* ============ UTILIDADES ============ */
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const norm = s => String(s ?? "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+const money = n => "$" + n.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+/* ============ CARRITO (se guarda en el navegador) ============ */
+const KEY = "tuEventoCarritoV2";
+let mem = {};
+const load = () => { try { const d = JSON.parse(localStorage.getItem(KEY)); return d && typeof d === "object" && !Array.isArray(d) ? d : {}; } catch { return mem; } };
+const save = c => { mem = c; try { localStorage.setItem(KEY, JSON.stringify(c)); } catch {} };
+const cart = () => Object.entries(load()).map(([id, q]) => ({ e: E.find(x => x.id == id), q: +q })).filter(i => i.e && i.q > 0);
+
+function setQ(id, d) {
+  const c = load();
+  c[id] = Math.max(0, (+c[id] || 0) + d);
+  if (!c[id]) delete c[id];
+  save(c); drawQ();
+}
+function add(id, b) {
+  setQ(id, 1); b.textContent = "✓ Agregado";
+  setTimeout(() => b.textContent = "+ Agregar", 900);
+}
+
+/* ============ PANTALLA ============ */
+function filtros() {
+  [["#fc", "cat", "Todas las categorías"], ["#ft", "tipo", "Todos los tipos"]].forEach(([s, k, t]) => {
+    const el = $(s), v = el.value;
+    el.innerHTML = `<option value="">${t}</option>` + [...new Set(E.map(e => e[k]))].map(x => `<option>${esc(x)}</option>`).join("");
+    el.value = v;
+  });
+}
+function draw() {
+  const c = $("#fc").value, t = $("#ft").value, s = norm($("#fs").value.trim());
+  const L = E.filter(e => (!c || e.cat === c) && (!t || e.tipo === t) && norm([e.nom, e.mod, e.marca, e.cat, e.tipo, e.desc].join(" ")).includes(s));
+  $("#rc").textContent = `${L.length} equipo(s) encontrado(s)`;
+  $("#pg").innerHTML = L.length ? L.map(e => `
+    <article class="card">
+      <div class="vis">${e.img ? `<img src="${esc(e.img)}" alt="${esc(e.nom)}" loading="lazy" onerror="this.remove()">` : ""}<span>${esc(e.ico)}</span><small>${esc(e.cat)}</small></div>
+      <div class="ci">
+        <p class="eb">${esc([e.marca, e.mod].filter(Boolean).join(" / "))}</p>
+        <h3>${esc(e.nom)}</h3><p>${esc(e.desc)}</p>
+        ${e.esp.length ? `<ul>${e.esp.map(x => `<li>${esc(x)}</li>`).join("")}</ul>` : ""}
+        <span class="tag">${esc(e.tipo)}</span>
+        <div class="bt"><strong>${e.precio == null ? "Precio por consultar" : money(e.precio)}</strong><button onclick="add(${e.id},this)">+ Agregar</button></div>
+      </div>
+    </article>`).join("") : `<div class="em" style="grid-column:1/-1">No encontramos equipos con esos filtros. Prueba otra búsqueda.</div>`;
+}
+function drawQ() {
+  const L = cart();
+  $("#cnt").textContent = L.reduce((s, i) => s + i.q, 0);
+  $("#ql").innerHTML = L.length ? L.map(({ e, q }) => `
+    <div class="q">
+      <div><b>${esc(e.nom)}</b><small>${esc(e.mod)} · ${e.precio == null ? "Precio por consultar" : money(e.precio)}</small></div>
+      <div class="qty"><button aria-label="Disminuir" onclick="setQ(${e.id},-1)">−</button><b>${q}</b><button aria-label="Aumentar" onclick="setQ(${e.id},1)">+</button></div>
+      <button class="x" onclick="setQ(${e.id},-${q})">Quitar</button>
+    </div>`).join("") : `<div class="em">Tu cotización está vacía. <a href="#equipos" style="color:var(--o2)">Explorar equipos</a></div>`;
+  const P = L.filter(i => i.e.precio != null);
+  $("#sub").textContent = P.length ? money(P.reduce((s, i) => s + i.e.precio * i.q, 0)) : "Por consultar";
+}
+
+/* ============ BASE DE DATOS ============ */
+async function cargarBD() {
+  if (!BD) return;
+  try {
+    const r = await fetch(`${SUPABASE_URL}/rest/v1/equipos?select=*&activo=eq.true&order=orden.asc,id.asc`, { headers: { apikey: SUPABASE_KEY } });
+    if (!r.ok) throw new Error("HTTP " + r.status);
+    const f = await r.json();
+    if (Array.isArray(f) && f.length) E.splice(0, E.length, ...f.map(x => ({
+      id: +x.id, img: x.imagen || "", cat: x.categoria, tipo: x.tipo, marca: x.marca === "Por definir" ? "" : (x.marca || ""),
+      mod: x.modelo, nom: x.nombre, desc: x.descripcion || "", esp: Array.isArray(x.especificaciones) ? x.especificaciones : [],
+      precio: x.precio == null ? null : +x.precio, ico: x.icono || "•"
+    })));
+  } catch (err) { console.warn("Se usa el catálogo local; no se pudo leer la base de datos:", err); }
+}
+
+$("#rf").addEventListener("submit", async ev => {
+  ev.preventDefault();
+  const L = cart();
+  if (!L.length) return alert("Primero agrega al menos un equipo desde el catálogo.");
+  const d = Object.fromEntries(new FormData(ev.target)), b = $("#env");
+  const txt = ["SOLICITUD DE COTIZACIÓN - TU EVENTO", `Nombre: ${d.nombre}`, `Teléfono: ${d.telefono}`, `Correo: ${d.correo}`,
+    `Tipo de evento: ${d.tipo}`, `Fecha: ${d.fecha}`, `Lugar: ${d.lugar}`, `Detalles: ${d.mensaje || "No especificados"}`,
+    "Equipos:", ...L.map(i => `${i.e.nom} x ${i.q}`)].join("\n");
+  const bajar = () => {
+    const a = Object.assign(document.createElement("a"), { href: URL.createObjectURL(new Blob([txt], { type: "text/plain;charset=utf-8" })), download: "solicitud-tu-evento.txt" });
+    document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 1500);
+  };
+  if (!BD) { bajar(); return alert("Se descargó el resumen de tu solicitud. Este sitio aún no está conectado a una base de datos."); }
+  b.disabled = true;
+  try {
+    const r = await fetch(`${SUPABASE_URL}/rest/v1/rpc/crear_solicitud`, {
+      method: "POST", headers: { apikey: SUPABASE_KEY, "Content-Type": "application/json" },
+      body: JSON.stringify({ p_nombre: d.nombre, p_telefono: d.telefono, p_correo: d.correo, p_tipo_evento: d.tipo, p_fecha_evento: d.fecha,
+        p_lugar: d.lugar, p_mensaje: d.mensaje || "", p_items: L.map(i => ({ id: i.e.id, cantidad: i.q })) })
+    });
+    if (!r.ok) throw new Error("HTTP " + r.status);
+    const id = await r.json();
+    save({}); drawQ(); ev.target.reset();
+    alert(`¡Solicitud enviada! Tu código de referencia es ${String(id).slice(0, 8).toUpperCase()}. Te contactaremos pronto.`);
+  } catch (err) {
+    console.error(err);
+    if (confirm("No pudimos enviar tu solicitud. ¿Quieres descargar un resumen para enviarlo por otro medio?")) bajar();
+  } finally { b.disabled = false; }
+});
+
+/* ============ INICIO ============ */
+const io = window.IntersectionObserver && new IntersectionObserver(es => es.forEach(x => x.isIntersecting ? x.target.play().catch(() => {}) : x.target.pause()), { threshold: .35 });
+document.querySelectorAll(".ev[data-v]").forEach(card => {   // videos opcionales: media/eventos-xxx.mp4
+  if (!io || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const v = document.createElement("video");
+  v.muted = v.loop = v.playsInline = true; v.preload = "none"; v.poster = `media/${card.dataset.v}.jpg`;
+  v.innerHTML = `<source src="media/${card.dataset.v}.mp4" type="video/mp4">`;
+  v.addEventListener("error", () => v.remove(), true);
+  card.prepend(v); io.observe(v);
+});
+["#fc", "#ft"].forEach(s => $(s).onchange = draw);
+$("#fs").oninput = draw;
+$("#fd").min = new Date(Date.now() - new Date().getTimezoneOffset() * 6e4).toISOString().slice(0, 10);
+filtros(); draw(); drawQ();
+if (BD) { $("#pg").innerHTML = '<div class="em" style="grid-column:1/-1">Cargando equipos…</div>'; cargarBD().then(() => { filtros(); draw(); drawQ(); }); }
+</script>
 </body>
 </html>
